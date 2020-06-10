@@ -1,5 +1,3 @@
-# vue-table-spa
-
 ## Project setup
 ```
 npm install
@@ -9,16 +7,10 @@ npm install
 ```
 npm run serve
 ```
+change your local web server address in src/main.js file
 
 ### Compiles and minifies for production
 ```
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+after build copy php folder into dist

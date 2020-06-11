@@ -70,10 +70,10 @@
         <select class="custom-select custom-select-sm" v-model="filterFrom">
           <option disabled>Выберите солбец для сортировки</option>
           <option
-            v-for="(title, index) in titles"
+            v-for="(column, index) in columnListToSort"
             :key="index"
-            v-bind:value="title.key"
-            >{{ title.name }}</option
+            v-bind:value="column.key"
+            >{{ column.name }}</option
           >
         </select>
       </div>
@@ -95,10 +95,6 @@
           placeholder="Введите текст для поиска"
           v-model="searchText"
         />
-      </div>
-      <hr />
-      <div class="row">
-        <h2>А вот тут фильтруются данные на сервере</h2>
       </div>
     </div>
   </div>
@@ -203,20 +199,27 @@ export default {
       this.pageCount = Math.ceil(arrLength / this.perPage);
     },
     addRowMumber(tmpArray) {
-      let i = 1;
-      tmpArray.forEach(row => {
-        row["num"] = i++;
-      });
-      return tmpArray;
+      if (typeof tmpArray !== "undefined" && tmpArray.length > 0) {
+        let i = 1;
+        tmpArray.forEach(row => {
+          row["num"] = i++;
+        });
+        return tmpArray;
+      }
     },
     paginateData(tmpArray) {
-      if (this.pageNumber == 1) return tmpArray.slice(0, this.perPage);
-      const start = this.pageNumber * this.perPage;
-      const end = start + this.perPage;
-      return tmpArray.slice(start, end);
+      if (typeof tmpArray !== "undefined" && tmpArray.length > 0) {
+        if (this.pageNumber == 1) return tmpArray.slice(0, this.perPage);
+        const start = this.pageNumber * this.perPage;
+        const end = start + this.perPage;
+        return tmpArray.slice(start, end);
+      }
     }
   },
   computed: {
+    columnListToSort() {
+      return this.titles.filter(title => title.sortable === true);
+    },
     paginatedData() {
       let tmpArray = this.data;
       if (this.searchText.trim() != "" && this.filterFrom && this.filterType) {

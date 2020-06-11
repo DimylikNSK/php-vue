@@ -4,7 +4,9 @@ import axios from "axios";
 import "./assets/bootstrap.min.css";
 
 axios.defaults.baseURL =
-  process.env.NODE_ENV !== "production" ? "http://phptest" : "";
+  process.env.NODE_ENV !== "production" ? "http://localhost/" : "";
+axios.defaults.headers.post["Content-Type"] = "application/json;charset=utf-8";
+axios.defaults.headers.post["Access-Control-Allow-Origin"] = "*";
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 

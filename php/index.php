@@ -1,8 +1,9 @@
 <?php
-require_once( "DB.php" );
-$db = new DB();
-
-$result = $db::getRows("SELECT * FROM `test` ");
-
 header("Access-Control-Allow-Origin: *");
-echo json_encode($result);
+require_once './lib/Database.php';
+require_once './lib/RequestHandler.php';
+
+$db = new Database();
+$rh = new RequestHandler($db, 'test');
+
+echo $rh->response();
